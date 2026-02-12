@@ -59,7 +59,7 @@ const ProductsSection = () => {
                   <span className="font-body text-muted-foreground text-sm">{product.per}</span>
                 </div>
                 <a
-                  href="https://wa.me/923001234567"
+                  href="https://wa.me/923116971320"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full text-center bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold hover:opacity-90 transition-opacity"

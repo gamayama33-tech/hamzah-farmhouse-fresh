@@ -19,10 +19,10 @@ const Navbar = () => {
         <div className="animate-marquee whitespace-nowrap py-1.5 text-sm font-body text-primary-foreground">
           <span className="mx-8">🥚 Farm Fresh Eggs Delivered Across Islamabad & Rawalpindi</span>
           <span className="mx-8">🌿 100% Natural Feed — No Hormones, No Antibiotics</span>
-          <span className="mx-8">📞 Order Now: +92 300 1234567</span>
+          <span className="mx-8">📞 Call or WhatsApp: 03 11 697 1320</span>
           <span className="mx-8">🥚 Farm Fresh Eggs Delivered Across Islamabad & Rawalpindi</span>
           <span className="mx-8">🌿 100% Natural Feed — No Hormones, No Antibiotics</span>
-          <span className="mx-8">📞 Order Now: +92 300 1234567</span>
+          <span className="mx-8">📞 Call or WhatsApp: 03 11 697 1320</span>
         </div>
       </div>
 
@@ -43,7 +43,7 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href="tel:+923001234567"
+            href="tel:+923116971320"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body hover:opacity-90 transition-opacity"
           >
             <Phone className="w-4 h-4" />
@@ -75,7 +75,7 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href="tel:+923001234567"
+            href="tel:+923116971320"
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body"
           >
             <Phone className="w-4 h-4" />
