@@ -9,7 +9,7 @@ const AboutSection = () => {
             <img
               src={farmerImg}
               alt="Hamzah Farms farmer"
-              className="w-full h-[500px] object-cover rounded-2xl"
+              className="w-full h-[400px] object-cover rounded-2xl"
             />
           </div>
           <div>
