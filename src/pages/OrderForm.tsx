@@ -188,27 +188,16 @@ const OrderForm = () => {
                   className={inputClass}
                 />
 
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    name="postalCode"
-                    type="text"
-                    maxLength={10}
-                    value={form.postalCode}
-                    onChange={handleChange}
-                    placeholder="Postal code (optional)"
-                    className={inputClass}
-                  />
-                  <input
-                    name="phone"
-                    type="tel"
-                    required
-                    maxLength={15}
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="Phone *"
-                    className={inputClass}
-                  />
-                </div>
+                <input
+                  name="phone"
+                  type="tel"
+                  required
+                  maxLength={15}
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Phone *"
+                  className={inputClass}
+                />
               </div>
             </section>
 
