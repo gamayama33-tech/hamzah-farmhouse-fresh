@@ -1,189 +1,362 @@
 import { useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-
-const products = [
-  { id: "12-eggs-pack", name: "12-Eggs Pack", price: 350, per: "dozen" },
-  { id: "eggs-tray", name: "Eggs Tray", price: 850, per: "2.5 dozen" },
-  { id: "double-yolk", name: "12 Double Yolk Eggs", price: 600, per: "dozen" },
-];
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "@/context/CartContext";
+import { Truck, CreditCard, ShieldCheck } from "lucide-react";
 
 const SHIPPING_FEE = 200;
 const FREE_SHIPPING_THRESHOLD = 2000;
 
 const OrderForm = () => {
-  const [searchParams] = useSearchParams();
-  const preselected = searchParams.get("product") || "";
+  const { items, totalPrice, clearCart } = useCart();
+  const navigate = useNavigate();
+
+  const shipping = totalPrice >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const grandTotal = totalPrice + shipping;
 
   const [form, setForm] = useState({
-    name: "",
+    email: "",
+    firstName: "",
+    lastName: "",
     phone: "",
     address: "",
+    apartment: "",
     city: "Islamabad",
-    product: preselected,
-    quantity: 1,
+    postalCode: "",
     notes: "",
+    payment: "cod",
   });
 
   const [submitted, setSubmitted] = useState(false);
 
-  const selectedProduct = products.find((p) => p.id === form.product);
-  const subtotal = selectedProduct ? selectedProduct.price * form.quantity : 0;
-  const shipping = subtotal >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
-  const total = subtotal + shipping;
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: name === "quantity" ? Math.max(1, Math.min(100, parseInt(value) || 1)) : value,
-    }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.phone.trim() || !form.address.trim() || !form.product) return;
+    if (items.length === 0) return;
+    if (!form.firstName.trim() || !form.phone.trim() || !form.address.trim()) return;
 
-    const shippingLine = shipping === 0 ? "Free Shipping ✅" : `Shipping: Rs. ${shipping}`;
-    const message = encodeURIComponent(
-      `🥚 *New Order — Hamzah Farms*\n\n` +
-      `*Name:* ${form.name.trim()}\n` +
-      `*Phone:* ${form.phone.trim()}\n` +
-      `*Address:* ${form.address.trim()}, ${form.city}\n` +
-      `*Product:* ${selectedProduct?.name}\n` +
-      `*Quantity:* ${form.quantity}\n` +
-      `*Subtotal:* Rs. ${subtotal}\n` +
-      `${shippingLine}\n` +
-      `*Total:* Rs. ${total}\n` +
-      (form.notes.trim() ? `*Notes:* ${form.notes.trim()}\n` : "")
-    );
-    window.open(`https://wa.me/923116971320?text=${message}`, "_blank");
     setSubmitted(true);
+    clearCart();
   };
 
-  if (submitted) {
+  // Empty cart redirect
+  if (items.length === 0 && !submitted) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center py-20 px-6">
-          <div className="text-center max-w-md">
-            <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-4xl">✅</span>
-            </div>
-            <h2 className="font-display text-3xl font-bold text-foreground mb-4">Order Sent!</h2>
-            <p className="font-body text-muted-foreground mb-8">
-              Your order has been sent via WhatsApp. We'll confirm it shortly. Thank you for choosing Hamzah Farms!
-            </p>
-            <Link
-              to="/"
-              className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg font-body font-semibold hover:opacity-90 transition-opacity"
-            >
-              Back to Home
-            </Link>
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+        <div className="text-center max-w-md">
+          <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto mb-6">
+            <span className="text-4xl">🛒</span>
           </div>
+          <h2 className="font-display text-2xl font-bold text-foreground mb-3">Your cart is empty</h2>
+          <p className="font-body text-muted-foreground mb-8">Add some products before checking out.</p>
+          <Link
+            to="/"
+            className="inline-block bg-primary text-primary-foreground px-8 py-3 rounded-lg font-body font-semibold hover:opacity-90 transition-opacity"
+          >
+            Continue Shopping
+          </Link>
         </div>
-        <Footer />
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-1 py-20 md:py-28">
-        <div className="container mx-auto px-6 max-w-2xl">
-          <div className="text-center mb-12">
-            <p className="font-body text-secondary font-semibold text-sm uppercase tracking-widest mb-3">
-              Place Your Order
-            </p>
-            <h1 className="font-display text-4xl md:text-5xl font-bold text-foreground">
-              Order Fresh Eggs
-            </h1>
-            <p className="font-body text-muted-foreground mt-4">
-              Fill in the details below and we'll confirm your order on WhatsApp.
-            </p>
+  // Order confirmation
+  if (submitted) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center px-6">
+        <div className="text-center max-w-lg">
+          <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-8">
+            <span className="text-5xl">✅</span>
           </div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Order Placed Successfully!
+          </h2>
+          <p className="font-body text-muted-foreground mb-3 text-lg">
+            Thank you for your order. We'll contact you shortly on your phone number to confirm delivery.
+          </p>
+          <p className="font-body text-muted-foreground mb-8 text-sm">
+            Delivery is typically next day between 11am – 4pm.
+          </p>
+          <Link
+            to="/"
+            className="inline-block bg-primary text-primary-foreground px-10 py-3.5 rounded-lg font-body font-semibold text-base hover:opacity-90 transition-opacity"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
-          <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-8 space-y-6">
-            <div>
-              <label htmlFor="name" className="block font-body font-semibold text-foreground mb-2 text-sm">Full Name *</label>
-              <input id="name" name="name" type="text" required maxLength={100} value={form.name} onChange={handleChange} placeholder="Muhammad Ahmed" className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-body placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition" />
-            </div>
+  const inputClass =
+    "w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-body text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition";
 
-            <div>
-              <label htmlFor="phone" className="block font-body font-semibold text-foreground mb-2 text-sm">Phone Number *</label>
-              <input id="phone" name="phone" type="tel" required maxLength={15} value={form.phone} onChange={handleChange} placeholder="03XX-XXXXXXX" className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-body placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition" />
-            </div>
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b border-border bg-background">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+          <Link to="/" className="font-display text-2xl font-bold text-primary tracking-tight">
+            Hamzah <span className="text-secondary">Farms</span>
+          </Link>
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <ShieldCheck className="w-4 h-4" />
+            <span className="font-body text-xs">Secure Checkout</span>
+          </div>
+        </div>
+      </header>
 
-            <div>
-              <label htmlFor="address" className="block font-body font-semibold text-foreground mb-2 text-sm">Delivery Address *</label>
-              <input id="address" name="address" type="text" required maxLength={200} value={form.address} onChange={handleChange} placeholder="House #, Street, Sector" className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-body placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition" />
-            </div>
+      <main className="max-w-6xl mx-auto px-6 py-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16">
+          {/* Left — Form */}
+          <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-8">
+            {/* Contact */}
+            <section>
+              <h2 className="font-display text-lg font-bold text-foreground mb-4">Contact</h2>
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="Email (optional)"
+                maxLength={255}
+                className={inputClass}
+              />
+            </section>
 
-            <div>
-              <label htmlFor="city" className="block font-body font-semibold text-foreground mb-2 text-sm">City</label>
-              <select id="city" name="city" value={form.city} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-body focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition">
-                <option value="Islamabad">Islamabad</option>
-                <option value="Rawalpindi">Rawalpindi</option>
-              </select>
-            </div>
+            {/* Delivery */}
+            <section>
+              <h2 className="font-display text-lg font-bold text-foreground mb-4">Delivery</h2>
+              <div className="space-y-3">
+                {/* City selector */}
+                <select
+                  name="city"
+                  value={form.city}
+                  onChange={handleChange}
+                  className={inputClass}
+                >
+                  <option value="Islamabad">Islamabad</option>
+                  <option value="Rawalpindi">Rawalpindi</option>
+                </select>
 
-            <div>
-              <label htmlFor="product" className="block font-body font-semibold text-foreground mb-2 text-sm">Product *</label>
-              <select id="product" name="product" required value={form.product} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-body focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition">
-                <option value="" disabled>Select a product</option>
-                {products.map((p) => (
-                  <option key={p.id} value={p.id}>{p.name} — Rs. {p.price} / {p.per}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="quantity" className="block font-body font-semibold text-foreground mb-2 text-sm">Quantity</label>
-              <input id="quantity" name="quantity" type="number" min={1} max={100} value={form.quantity} onChange={handleChange} className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-body focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition" />
-            </div>
-
-            {selectedProduct && (
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 space-y-2">
-                <div className="flex justify-between items-center text-sm">
-                  <span className="font-body text-muted-foreground">Subtotal</span>
-                  <span className="font-body font-medium text-foreground">Rs. {subtotal}</span>
+                {/* Name row */}
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    name="firstName"
+                    type="text"
+                    required
+                    maxLength={50}
+                    value={form.firstName}
+                    onChange={handleChange}
+                    placeholder="First name"
+                    className={inputClass}
+                  />
+                  <input
+                    name="lastName"
+                    type="text"
+                    maxLength={50}
+                    value={form.lastName}
+                    onChange={handleChange}
+                    placeholder="Last name"
+                    className={inputClass}
+                  />
                 </div>
-                <div className="flex justify-between items-center text-sm">
+
+                <input
+                  name="address"
+                  type="text"
+                  required
+                  maxLength={200}
+                  value={form.address}
+                  onChange={handleChange}
+                  placeholder="Address"
+                  className={inputClass}
+                />
+
+                <input
+                  name="apartment"
+                  type="text"
+                  maxLength={100}
+                  value={form.apartment}
+                  onChange={handleChange}
+                  placeholder="Apartment, suite, etc. (optional)"
+                  className={inputClass}
+                />
+
+                <div className="grid grid-cols-2 gap-3">
+                  <input
+                    name="postalCode"
+                    type="text"
+                    maxLength={10}
+                    value={form.postalCode}
+                    onChange={handleChange}
+                    placeholder="Postal code (optional)"
+                    className={inputClass}
+                  />
+                  <input
+                    name="phone"
+                    type="tel"
+                    required
+                    maxLength={15}
+                    value={form.phone}
+                    onChange={handleChange}
+                    placeholder="Phone *"
+                    className={inputClass}
+                  />
+                </div>
+              </div>
+            </section>
+
+            {/* Shipping method */}
+            <section>
+              <h2 className="font-display text-lg font-bold text-foreground mb-4">Shipping method</h2>
+              <div className="border border-primary/30 bg-primary/5 rounded-lg p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Truck className="w-5 h-5 text-primary" />
+                  <div>
+                    <p className="font-body font-medium text-foreground text-sm">Standard Delivery</p>
+                    <p className="font-body text-muted-foreground text-xs">Next day (11am – 4pm)</p>
+                  </div>
+                </div>
+                <span className="font-body font-semibold text-foreground text-sm">
+                  {shipping === 0 ? (
+                    <span className="text-primary">Free</span>
+                  ) : (
+                    `Rs. ${shipping}`
+                  )}
+                </span>
+              </div>
+              {shipping > 0 && (
+                <p className="font-body text-xs text-muted-foreground mt-2">
+                  Free shipping on orders above Rs. 2,000
+                </p>
+              )}
+            </section>
+
+            {/* Payment */}
+            <section>
+              <h2 className="font-display text-lg font-bold text-foreground mb-1">Payment</h2>
+              <p className="font-body text-muted-foreground text-xs mb-4">All transactions are secure.</p>
+              <div className="space-y-2">
+                <label
+                  className={`flex items-center gap-3 border rounded-lg p-4 cursor-pointer transition ${
+                    form.payment === "cod"
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-muted-foreground/30"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="cod"
+                    checked={form.payment === "cod"}
+                    onChange={handleChange}
+                    className="accent-primary w-4 h-4"
+                  />
+                  <CreditCard className="w-5 h-5 text-muted-foreground" />
+                  <span className="font-body font-medium text-foreground text-sm">Cash on Delivery (COD)</span>
+                </label>
+                <label
+                  className={`flex items-center gap-3 border rounded-lg p-4 cursor-pointer transition ${
+                    form.payment === "bank"
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-muted-foreground/30"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="bank"
+                    checked={form.payment === "bank"}
+                    onChange={handleChange}
+                    className="accent-primary w-4 h-4"
+                  />
+                  <CreditCard className="w-5 h-5 text-muted-foreground" />
+                  <span className="font-body font-medium text-foreground text-sm">Bank Transfer</span>
+                </label>
+              </div>
+            </section>
+
+            {/* Notes */}
+            <section>
+              <textarea
+                name="notes"
+                maxLength={500}
+                rows={2}
+                value={form.notes}
+                onChange={handleChange}
+                placeholder="Order notes (optional)"
+                className={inputClass + " resize-none"}
+              />
+            </section>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              className="w-full bg-primary text-primary-foreground py-4 rounded-lg font-body font-bold text-base hover:opacity-90 transition-opacity"
+            >
+              Complete Order
+            </button>
+          </form>
+
+          {/* Right — Order Summary */}
+          <aside className="lg:col-span-2">
+            <div className="lg:sticky lg:top-8">
+              <h2 className="font-display text-lg font-bold text-foreground mb-6">Order Summary</h2>
+
+              {/* Items */}
+              <div className="space-y-4 mb-6">
+                {items.map((item) => (
+                  <div key={item.id} className="flex items-center gap-4">
+                    <div className="relative shrink-0">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-16 h-16 rounded-lg object-cover border border-border bg-muted"
+                      />
+                      <span className="absolute -top-2 -right-2 bg-muted-foreground text-background text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                        {item.quantity}
+                      </span>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-body font-medium text-foreground text-sm truncate">{item.name}</p>
+                      <p className="font-body text-muted-foreground text-xs">Rs. {item.price} / {item.per}</p>
+                    </div>
+                    <p className="font-body font-semibold text-foreground text-sm">Rs. {item.price * item.quantity}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="border-t border-border pt-4 space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="font-body text-muted-foreground">Subtotal</span>
+                  <span className="font-body font-medium text-foreground">Rs. {totalPrice}</span>
+                </div>
+                <div className="flex justify-between text-sm">
                   <span className="font-body text-muted-foreground">Shipping</span>
                   {shipping === 0 ? (
-                    <span className="font-body font-medium text-green-600">Free</span>
+                    <span className="font-body font-medium text-primary">Free</span>
                   ) : (
                     <span className="font-body font-medium text-foreground">Rs. {shipping}</span>
                   )}
                 </div>
-                {shipping > 0 && (
-                  <p className="font-body text-xs text-muted-foreground">Add Rs. {FREE_SHIPPING_THRESHOLD - subtotal} more for free shipping</p>
-                )}
-                <div className="flex justify-between items-center pt-2 border-t border-primary/20">
+                <div className="flex justify-between items-center pt-3 border-t border-border">
                   <span className="font-body font-semibold text-foreground">Total</span>
-                  <span className="font-display text-2xl font-bold text-primary">Rs. {total}</span>
+                  <div className="text-right">
+                    <span className="font-body text-muted-foreground text-xs mr-2">PKR</span>
+                    <span className="font-display text-2xl font-bold text-foreground">Rs. {grandTotal}</span>
+                  </div>
                 </div>
               </div>
-            )}
-
-            <div>
-              <label htmlFor="notes" className="block font-body font-semibold text-foreground mb-2 text-sm">Special Instructions (optional)</label>
-              <textarea id="notes" name="notes" maxLength={500} rows={3} value={form.notes} onChange={handleChange} placeholder="Any delivery preferences or special requests..." className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground font-body placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition resize-none" />
             </div>
-
-            <button type="submit" className="w-full bg-primary text-primary-foreground py-4 rounded-lg font-body font-bold text-lg hover:opacity-90 transition-opacity">
-              Confirm Order via WhatsApp
-            </button>
-
-            <p className="text-center font-body text-muted-foreground text-xs">
-              Your order will be sent via WhatsApp for confirmation. Free delivery on orders above Rs. 2,000.
-            </p>
-          </form>
+          </aside>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
