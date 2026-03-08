@@ -1,6 +1,6 @@
 import whiteEggs from "@/assets/white-eggs.jpg";
 import brownEggs from "@/assets/brown-eggs.jpg";
-import desiEggs from "@/assets/desi-eggs.jpg";
+import doubleYolk from "@/assets/double-yolk.png";
 
 const products = [
   {
@@ -22,7 +22,7 @@ const products = [
     desc: "Rare double yolk eggs packed with extra richness — a dozen of pure delight.",
     price: "Rs. 600",
     per: "/ dozen",
-    image: desiEggs,
+    image: doubleYolk,
   },
 ];
 
