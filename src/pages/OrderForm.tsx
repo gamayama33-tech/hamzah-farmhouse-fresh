@@ -21,7 +21,6 @@ const OrderForm = () => {
     address: "",
     apartment: "",
     city: "Islamabad",
-    postalCode: "",
     notes: "",
     payment: "cod",
   });
@@ -188,27 +187,16 @@ const OrderForm = () => {
                   className={inputClass}
                 />
 
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    name="postalCode"
-                    type="text"
-                    maxLength={10}
-                    value={form.postalCode}
-                    onChange={handleChange}
-                    placeholder="Postal code (optional)"
-                    className={inputClass}
-                  />
-                  <input
-                    name="phone"
-                    type="tel"
-                    required
-                    maxLength={15}
-                    value={form.phone}
-                    onChange={handleChange}
-                    placeholder="Phone *"
-                    className={inputClass}
-                  />
-                </div>
+                <input
+                  name="phone"
+                  type="tel"
+                  required
+                  maxLength={15}
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Phone *"
+                  className={inputClass}
+                />
               </div>
             </section>
 
@@ -260,24 +248,6 @@ const OrderForm = () => {
                   />
                   <CreditCard className="w-5 h-5 text-muted-foreground" />
                   <span className="font-body font-medium text-foreground text-sm">Cash on Delivery (COD)</span>
-                </label>
-                <label
-                  className={`flex items-center gap-3 border rounded-lg p-4 cursor-pointer transition ${
-                    form.payment === "bank"
-                      ? "border-primary bg-primary/5"
-                      : "border-border hover:border-muted-foreground/30"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="bank"
-                    checked={form.payment === "bank"}
-                    onChange={handleChange}
-                    className="accent-primary w-4 h-4"
-                  />
-                  <CreditCard className="w-5 h-5 text-muted-foreground" />
-                  <span className="font-body font-medium text-foreground text-sm">Bank Transfer</span>
                 </label>
               </div>
             </section>
