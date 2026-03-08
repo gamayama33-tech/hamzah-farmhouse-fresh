@@ -8,7 +8,7 @@ const products = [
     desc: "Farm fresh eggs in a convenient dozen packing — perfect for everyday use.",
     price: "Rs. 350",
     per: "/ dozen",
-    image: whiteEggs,
+    image: eggsPack,
   },
   {
     name: "Eggs Tray",
