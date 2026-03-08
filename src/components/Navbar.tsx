@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -13,6 +14,7 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { totalItems, setIsCartOpen } = useCart();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
@@ -50,13 +52,18 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <a
-            href="#products"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body hover:opacity-90 transition-opacity"
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="relative inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body hover:opacity-90 transition-opacity"
           >
-            <Phone className="w-4 h-4" />
-            Order Now
-          </a>
+            <ShoppingCart className="w-4 h-4" />
+            Cart
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-secondary text-secondary-foreground text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
 
         {/* Mobile toggle */}
@@ -82,14 +89,18 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <a
-            href="#products"
-            onClick={() => setOpen(false)}
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body"
+          <button
+            onClick={() => { setOpen(false); setIsCartOpen(true); }}
+            className="relative inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body"
           >
-            <Phone className="w-4 h-4" />
-            Order Now
-          </a>
+            <ShoppingCart className="w-4 h-4" />
+            Cart
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-secondary text-secondary-foreground text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
       )}
     </nav>
