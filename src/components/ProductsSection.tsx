@@ -1,4 +1,4 @@
-import whiteEggs from "@/assets/white-eggs.jpg";
+import eggsPack from "@/assets/12-eggs-pack.png";
 import eggTray from "@/assets/egg-tray.png";
 import doubleYolk from "@/assets/double-yolk.png";
 
