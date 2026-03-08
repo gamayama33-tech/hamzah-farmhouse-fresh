@@ -1,14 +1,21 @@
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
+const FREE_SHIPPING_THRESHOLD = 2000;
+const SHIPPING_FEE = 200;
+
 const CartDrawer = () => {
   const { items, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, clearCart, totalItems, totalPrice } = useCart();
+
+  const shipping = totalPrice >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const grandTotal = totalPrice + shipping;
 
   const handleCheckout = () => {
     if (items.length === 0) return;
     const orderLines = items.map((i) => `• ${i.name} × ${i.quantity} = Rs. ${i.price * i.quantity}`).join("\n");
+    const shippingLine = shipping === 0 ? "Free Shipping ✅" : `Shipping: Rs. ${shipping}`;
     const message = encodeURIComponent(
-      `🥚 *New Order — Hamzah Farms*\n\n${orderLines}\n\n*Total: Rs. ${totalPrice}*\n\nPlease confirm my order. Thank you!`
+      `🥚 *New Order — Hamzah Farms*\n\n${orderLines}\n\n${shippingLine}\n*Grand Total: Rs. ${grandTotal}*\n\nPlease confirm my order. Thank you!`
     );
     window.open(`https://wa.me/923116971320?text=${message}`, "_blank");
   };
@@ -93,9 +100,26 @@ const CartDrawer = () => {
         {/* Footer */}
         {items.length > 0 && (
           <div className="border-t border-border p-6 space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="font-body font-medium text-foreground">Total</span>
-              <span className="font-display text-2xl font-bold text-primary">Rs. {totalPrice}</span>
+            <div className="flex justify-between items-center text-sm">
+              <span className="font-body text-muted-foreground">Subtotal</span>
+              <span className="font-body font-medium text-foreground">Rs. {totalPrice}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="font-body text-muted-foreground">Shipping</span>
+              {shipping === 0 ? (
+                <span className="font-body font-medium text-green-600">Free</span>
+              ) : (
+                <span className="font-body font-medium text-foreground">Rs. {shipping}</span>
+              )}
+            </div>
+            {shipping > 0 && (
+              <p className="font-body text-xs text-muted-foreground">
+                Add Rs. {FREE_SHIPPING_THRESHOLD - totalPrice} more for free shipping
+              </p>
+            )}
+            <div className="flex justify-between items-center pt-2 border-t border-border">
+              <span className="font-body font-semibold text-foreground">Total</span>
+              <span className="font-display text-2xl font-bold text-primary">Rs. {grandTotal}</span>
             </div>
             <button
               onClick={handleCheckout}
