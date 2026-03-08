@@ -4,24 +4,24 @@ import desiEggs from "@/assets/desi-eggs.jpg";
 
 const products = [
   {
-    name: "White Eggs",
-    desc: "Farm fresh white eggs — light, nutritious, and perfect for everyday cooking.",
-    price: "Rs. 420",
-    per: "/ 30 eggs",
+    name: "12-Eggs Pack",
+    desc: "Farm fresh eggs in a convenient dozen packing — perfect for everyday use.",
+    price: "Rs. 350",
+    per: "/ dozen",
     image: whiteEggs,
   },
   {
-    name: "Brown Eggs",
-    desc: "Premium brown eggs with rich flavor and naturally stronger shells.",
-    price: "Rs. 480",
-    per: "/ 30 eggs",
+    name: "Eggs Tray",
+    desc: "Full tray of premium farm fresh eggs — great value for families and bulk buyers.",
+    price: "Rs. 850",
+    per: "/ 2.5 dozen",
     image: brownEggs,
   },
   {
-    name: "Desi Eggs",
-    desc: "Free-range desi eggs with deep orange yolks — the traditional Pakistani favorite.",
+    name: "12 Double Yolk Eggs",
+    desc: "Rare double yolk eggs packed with extra richness — a dozen of pure delight.",
     price: "Rs. 600",
-    per: "/ 30 eggs",
+    per: "/ dozen",
     image: desiEggs,
   },
 ];
