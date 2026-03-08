@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { ShoppingCart, Check } from "lucide-react";
+import { useState } from "react";
+import { useCart } from "@/context/CartContext";
 import eggsPack from "@/assets/12-eggs-pack.png";
 import eggTray from "@/assets/egg-tray.png";
 import doubleYolk from "@/assets/double-yolk.png";
@@ -8,27 +10,67 @@ const products = [
     id: "12-eggs-pack",
     name: "12-Eggs Pack",
     desc: "Farm fresh eggs in a convenient dozen packing — perfect for everyday use.",
-    price: "Rs. 350",
-    per: "/ dozen",
+    price: 350,
+    priceLabel: "Rs. 350",
+    per: "dozen",
+    perLabel: "/ dozen",
     image: eggsPack,
   },
   {
     id: "eggs-tray",
     name: "Eggs Tray",
     desc: "Full tray of premium farm fresh eggs — great value for families and bulk buyers.",
-    price: "Rs. 850",
-    per: "/ 2.5 dozen",
+    price: 850,
+    priceLabel: "Rs. 850",
+    per: "2.5 dozen",
+    perLabel: "/ 2.5 dozen",
     image: eggTray,
   },
   {
     id: "double-yolk",
     name: "12 Double Yolk Eggs",
     desc: "Rare double yolk eggs packed with extra richness — a dozen of pure delight.",
-    price: "Rs. 600",
-    per: "/ dozen",
+    price: 600,
+    priceLabel: "Rs. 600",
+    per: "dozen",
+    perLabel: "/ dozen",
     image: doubleYolk,
   },
 ];
+
+const AddToCartButton = ({ product }: { product: typeof products[0] }) => {
+  const { addToCart } = useCart();
+  const [added, setAdded] = useState(false);
+
+  const handleAdd = () => {
+    addToCart({ id: product.id, name: product.name, price: product.price, per: product.per, image: product.image });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1200);
+  };
+
+  return (
+    <button
+      onClick={handleAdd}
+      className={`flex items-center justify-center gap-2 w-full py-3 rounded-lg font-body font-semibold transition-all duration-300 ${
+        added
+          ? "bg-green-600 text-white"
+          : "bg-primary text-primary-foreground hover:opacity-90"
+      }`}
+    >
+      {added ? (
+        <>
+          <Check className="w-4 h-4" />
+          Added!
+        </>
+      ) : (
+        <>
+          <ShoppingCart className="w-4 h-4" />
+          Add to Cart
+        </>
+      )}
+    </button>
+  );
+};
 
 const ProductsSection = () => {
   return (
@@ -60,15 +102,10 @@ const ProductsSection = () => {
                 <h3 className="font-display text-2xl font-bold text-foreground mb-2">{product.name}</h3>
                 <p className="font-body text-muted-foreground text-sm mb-4">{product.desc}</p>
                 <div className="flex items-baseline gap-1 mb-5">
-                  <span className="font-display text-2xl font-bold text-primary">{product.price}</span>
-                  <span className="font-body text-muted-foreground text-sm">{product.per}</span>
+                  <span className="font-display text-2xl font-bold text-primary">{product.priceLabel}</span>
+                  <span className="font-body text-muted-foreground text-sm">{product.perLabel}</span>
                 </div>
-                <Link
-                  to={`/order?product=${product.id}`}
-                  className="block w-full text-center bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold hover:opacity-90 transition-opacity"
-                >
-                  Order Now
-                </Link>
+                <AddToCartButton product={product} />
               </div>
             </div>
           ))}
