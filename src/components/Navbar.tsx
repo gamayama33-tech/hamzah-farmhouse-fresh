@@ -81,7 +81,8 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href="tel:+923116971320"
+            href="#products"
+            onClick={() => setOpen(false)}
             className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body"
           >
             <Phone className="w-4 h-4" />

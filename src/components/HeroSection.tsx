@@ -31,9 +31,7 @@ const HeroSection = () => {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-up" style={{ animationDelay: "0.7s" }}>
           <a
-            href="https://wa.me/923116971320"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="#products"
             className="bg-secondary text-secondary-foreground px-8 py-4 rounded-lg font-body font-bold text-lg hover:opacity-90 transition-opacity"
           >
             Order Now
