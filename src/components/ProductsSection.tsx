@@ -1,5 +1,5 @@
 import whiteEggs from "@/assets/white-eggs.jpg";
-import brownEggs from "@/assets/brown-eggs.jpg";
+import eggTray from "@/assets/egg-tray.png";
 import doubleYolk from "@/assets/double-yolk.png";
 
 const products = [
