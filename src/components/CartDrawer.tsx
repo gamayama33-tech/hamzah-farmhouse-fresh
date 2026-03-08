@@ -1,4 +1,5 @@
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
 
 const FREE_SHIPPING_THRESHOLD = 2000;
@@ -6,12 +7,16 @@ const SHIPPING_FEE = 200;
 
 const CartDrawer = () => {
   const { items, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, clearCart, totalItems, totalPrice } = useCart();
+  const navigate = useNavigate();
 
   const shipping = totalPrice >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
   const grandTotal = totalPrice + shipping;
 
   const handleCheckout = () => {
     if (items.length === 0) return;
+    setIsCartOpen(false);
+    navigate("/order");
+  };
     const orderLines = items.map((i) => `• ${i.name} × ${i.quantity} = Rs. ${i.price * i.quantity}`).join("\n");
     const shippingLine = shipping === 0 ? "Free Shipping ✅" : `Shipping: Rs. ${shipping}`;
     const message = encodeURIComponent(
