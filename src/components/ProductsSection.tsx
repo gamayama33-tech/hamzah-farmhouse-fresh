@@ -101,7 +101,7 @@ const ProductsSection = () => {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div className="p-6">
+              <div className="p-6 flex flex-col flex-1">
                 <h3 className="font-display text-2xl font-bold text-foreground mb-2">{product.name}</h3>
                 <p className="font-body text-muted-foreground text-sm mb-4">{product.desc}</p>
                 <div className="flex items-baseline gap-2 mb-5">
