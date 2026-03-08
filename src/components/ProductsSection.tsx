@@ -1,6 +1,6 @@
 import whiteEggs from "@/assets/white-eggs.jpg";
 import brownEggs from "@/assets/brown-eggs.jpg";
-import desiEggs from "@/assets/desi-eggs.jpg";
+import doubleYolk from "@/assets/double-yolk.png";
 
 const products = [
   {
