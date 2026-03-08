@@ -100,9 +100,26 @@ const CartDrawer = () => {
         {/* Footer */}
         {items.length > 0 && (
           <div className="border-t border-border p-6 space-y-4">
-            <div className="flex justify-between items-center">
-              <span className="font-body font-medium text-foreground">Total</span>
-              <span className="font-display text-2xl font-bold text-primary">Rs. {totalPrice}</span>
+            <div className="flex justify-between items-center text-sm">
+              <span className="font-body text-muted-foreground">Subtotal</span>
+              <span className="font-body font-medium text-foreground">Rs. {totalPrice}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm">
+              <span className="font-body text-muted-foreground">Shipping</span>
+              {shipping === 0 ? (
+                <span className="font-body font-medium text-green-600">Free</span>
+              ) : (
+                <span className="font-body font-medium text-foreground">Rs. {shipping}</span>
+              )}
+            </div>
+            {shipping > 0 && (
+              <p className="font-body text-xs text-muted-foreground">
+                Add Rs. {FREE_SHIPPING_THRESHOLD - totalPrice} more for free shipping
+              </p>
+            )}
+            <div className="flex justify-between items-center pt-2 border-t border-border">
+              <span className="font-body font-semibold text-foreground">Total</span>
+              <span className="font-display text-2xl font-bold text-primary">Rs. {grandTotal}</span>
             </div>
             <button
               onClick={handleCheckout}
