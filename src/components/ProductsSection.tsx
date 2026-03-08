@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
 import eggsPack from "@/assets/12-eggs-pack.png";
 import eggTray from "@/assets/egg-tray.png";
 import doubleYolk from "@/assets/double-yolk.png";
 
 const products = [
   {
+    id: "12-eggs-pack",
     name: "12-Eggs Pack",
     desc: "Farm fresh eggs in a convenient dozen packing — perfect for everyday use.",
     price: "Rs. 350",
@@ -11,6 +13,7 @@ const products = [
     image: eggsPack,
   },
   {
+    id: "eggs-tray",
     name: "Eggs Tray",
     desc: "Full tray of premium farm fresh eggs — great value for families and bulk buyers.",
     price: "Rs. 850",
@@ -18,6 +21,7 @@ const products = [
     image: eggTray,
   },
   {
+    id: "double-yolk",
     name: "12 Double Yolk Eggs",
     desc: "Rare double yolk eggs packed with extra richness — a dozen of pure delight.",
     price: "Rs. 600",
@@ -59,14 +63,12 @@ const ProductsSection = () => {
                   <span className="font-display text-2xl font-bold text-primary">{product.price}</span>
                   <span className="font-body text-muted-foreground text-sm">{product.per}</span>
                 </div>
-                <a
-                  href="https://wa.me/923116971320"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  to={`/order?product=${product.id}`}
                   className="block w-full text-center bg-primary text-primary-foreground py-3 rounded-lg font-body font-semibold hover:opacity-90 transition-opacity"
                 >
-                  Order on WhatsApp
-                </a>
+                  Order Now
+                </Link>
               </div>
             </div>
           ))}
