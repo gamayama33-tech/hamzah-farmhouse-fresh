@@ -8,7 +8,8 @@ const AboutSection = () => {
           <div className="rounded-2xl overflow-hidden">
             <img
               src={farmerImg}
-              alt="Hamzah Farms farmer"
+              alt="Hamzah Farms"
+              loading="lazy"
               className="w-full h-[400px] object-cover rounded-2xl"
             />
           </div>
