@@ -130,7 +130,7 @@ const CartDrawer = () => {
               onClick={handleCheckout}
               className="w-full bg-primary text-primary-foreground py-4 rounded-lg font-body font-bold text-base hover:opacity-90 transition-opacity"
             >
-              Checkout via WhatsApp
+              Proceed to Checkout
             </button>
             <button
               onClick={clearCart}
