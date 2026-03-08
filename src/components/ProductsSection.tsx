@@ -104,8 +104,11 @@ const ProductsSection = () => {
               <div className="p-6">
                 <h3 className="font-display text-2xl font-bold text-foreground mb-2">{product.name}</h3>
                 <p className="font-body text-muted-foreground text-sm mb-4">{product.desc}</p>
-                <div className="flex items-baseline gap-1 mb-5">
+                <div className="flex items-baseline gap-2 mb-5">
                   <span className="font-display text-2xl font-bold text-primary">{product.priceLabel}</span>
+                  {product.oldPrice && (
+                    <span className="font-body text-muted-foreground text-sm line-through">{product.oldPrice}</span>
+                  )}
                   <span className="font-body text-muted-foreground text-sm">{product.perLabel}</span>
                 </div>
                 <AddToCartButton product={product} />
