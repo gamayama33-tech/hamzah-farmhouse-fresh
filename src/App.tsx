@@ -20,6 +20,7 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <CartDrawer />
+          <FloatingCartButton />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/order" element={<OrderForm />} />
