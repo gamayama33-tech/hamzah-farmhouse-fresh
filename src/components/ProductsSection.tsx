@@ -10,8 +10,9 @@ const products = [
     id: "12-eggs-pack",
     name: "12-Eggs Pack",
     desc: "Farm fresh eggs in a convenient dozen packing — perfect for everyday use.",
-    price: 350,
-    priceLabel: "Rs. 350",
+    price: 310,
+    priceLabel: "Rs. 310",
+    oldPrice: "Rs. 350",
     per: "dozen",
     perLabel: "/ dozen",
     image: eggsPack,
@@ -20,8 +21,9 @@ const products = [
     id: "eggs-tray",
     name: "Eggs Tray",
     desc: "Full tray of premium farm fresh eggs — great value for families and bulk buyers.",
-    price: 850,
-    priceLabel: "Rs. 850",
+    price: 750,
+    priceLabel: "Rs. 750",
+    oldPrice: "Rs. 850",
     per: "2.5 dozen",
     perLabel: "/ 2.5 dozen",
     image: eggTray,
@@ -32,6 +34,7 @@ const products = [
     desc: "Rare double yolk eggs packed with extra richness — a dozen of pure delight.",
     price: 600,
     priceLabel: "Rs. 600",
+    oldPrice: "Rs. 800",
     per: "dozen",
     perLabel: "/ dozen",
     image: doubleYolk,
@@ -101,8 +104,11 @@ const ProductsSection = () => {
               <div className="p-6">
                 <h3 className="font-display text-2xl font-bold text-foreground mb-2">{product.name}</h3>
                 <p className="font-body text-muted-foreground text-sm mb-4">{product.desc}</p>
-                <div className="flex items-baseline gap-1 mb-5">
+                <div className="flex items-baseline gap-2 mb-5">
                   <span className="font-display text-2xl font-bold text-primary">{product.priceLabel}</span>
+                  {product.oldPrice && (
+                    <span className="font-body text-muted-foreground text-sm line-through">{product.oldPrice}</span>
+                  )}
                   <span className="font-body text-muted-foreground text-sm">{product.perLabel}</span>
                 </div>
                 <AddToCartButton product={product} />
