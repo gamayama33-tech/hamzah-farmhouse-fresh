@@ -21,14 +21,12 @@ const Navbar = () => {
       {/* Announcement bar */}
       <div className="bg-primary overflow-hidden">
         <div className="flex animate-marquee whitespace-nowrap py-1.5 text-sm font-body text-primary-foreground w-max">
-          <div className="flex shrink-0 items-center">
-            <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
-            <span className="mx-8">🎉 Free Shipping on orders above Rs. 2,000</span>
-          </div>
-          <div className="flex shrink-0 items-center">
-            <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
-            <span className="mx-8">🎉 Free Shipping on orders above Rs. 2,000</span>
-          </div>
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="flex shrink-0 items-center">
+              <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
+              <span className="mx-8">🎉 Free Shipping on orders above Rs. 2,000</span>
+            </div>
+          ))}
         </div>
       </div>
 
