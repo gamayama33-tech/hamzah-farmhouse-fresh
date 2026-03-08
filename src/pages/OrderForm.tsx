@@ -21,7 +21,6 @@ const OrderForm = () => {
     address: "",
     apartment: "",
     city: "Islamabad",
-    postalCode: "",
     notes: "",
     payment: "cod",
   });
