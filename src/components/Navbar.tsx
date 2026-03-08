@@ -17,9 +17,11 @@ const Navbar = () => {
       {/* Announcement bar */}
       <div className="bg-primary overflow-hidden">
         <div className="animate-marquee whitespace-nowrap py-1.5 text-sm font-body text-primary-foreground">
+          <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
           <span className="mx-8">🥚 Farm Fresh Eggs Delivered Across Islamabad & Rawalpindi</span>
           <span className="mx-8">🌿 100% Natural Feed — No Hormones, No Antibiotics</span>
           <span className="mx-8">📞 Call or WhatsApp: 03 11 697 1320</span>
+          <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
           <span className="mx-8">🥚 Farm Fresh Eggs Delivered Across Islamabad & Rawalpindi</span>
           <span className="mx-8">🌿 100% Natural Feed — No Hormones, No Antibiotics</span>
           <span className="mx-8">📞 Call or WhatsApp: 03 11 697 1320</span>
