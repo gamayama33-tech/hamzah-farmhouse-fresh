@@ -1,4 +1,4 @@
-import whiteEggs from "@/assets/white-eggs.jpg";
+import eggsPack from "@/assets/12-eggs-pack.png";
 import eggTray from "@/assets/egg-tray.png";
 import doubleYolk from "@/assets/double-yolk.png";
 
@@ -8,7 +8,7 @@ const products = [
     desc: "Farm fresh eggs in a convenient dozen packing — perfect for everyday use.",
     price: "Rs. 350",
     per: "/ dozen",
-    image: whiteEggs,
+    image: eggsPack,
   },
   {
     name: "Eggs Tray",
