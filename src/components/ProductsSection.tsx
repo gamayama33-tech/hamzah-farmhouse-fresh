@@ -1,5 +1,5 @@
 import whiteEggs from "@/assets/white-eggs.jpg";
-import brownEggs from "@/assets/brown-eggs.jpg";
+import eggTray from "@/assets/egg-tray.png";
 import doubleYolk from "@/assets/double-yolk.png";
 
 const products = [
@@ -15,7 +15,7 @@ const products = [
     desc: "Full tray of premium farm fresh eggs — great value for families and bulk buyers.",
     price: "Rs. 850",
     per: "/ 2.5 dozen",
-    image: brownEggs,
+    image: eggTray,
   },
   {
     name: "12 Double Yolk Eggs",
