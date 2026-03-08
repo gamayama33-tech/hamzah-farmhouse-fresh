@@ -15,7 +15,7 @@ const products = [
     desc: "Full tray of premium farm fresh eggs — great value for families and bulk buyers.",
     price: "Rs. 850",
     per: "/ 2.5 dozen",
-    image: brownEggs,
+    image: eggTray,
   },
   {
     name: "12 Double Yolk Eggs",
