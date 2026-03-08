@@ -52,13 +52,18 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <a
-            href="#products"
-            className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body hover:opacity-90 transition-opacity"
+          <button
+            onClick={() => setIsCartOpen(true)}
+            className="relative inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-lg text-sm font-semibold font-body hover:opacity-90 transition-opacity"
           >
-            <Phone className="w-4 h-4" />
-            Order Now
-          </a>
+            <ShoppingCart className="w-4 h-4" />
+            Cart
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-secondary text-secondary-foreground text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
 
         {/* Mobile toggle */}
