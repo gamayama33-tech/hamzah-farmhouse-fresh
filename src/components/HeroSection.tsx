@@ -21,7 +21,7 @@ const HeroSection = () => {
           <span className="text-secondary">Farms</span>
         </h1>
         <p className="font-body text-primary-foreground/80 text-lg md:text-xl max-w-2xl mx-auto mb-8 opacity-0 animate-fade-up" style={{ animationDelay: "0.5s" }}>
-          From our farms in Pakistan to your table — premium quality eggs with no hormones, no antibiotics. Just pure nutrition.
+          From our farms in Islamabad to your table — premium quality eggs with no hormones, no antibiotics. Just pure nutrition.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-up" style={{ animationDelay: "0.7s" }}>
           <a
