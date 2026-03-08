@@ -1,14 +1,21 @@
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
+const FREE_SHIPPING_THRESHOLD = 2000;
+const SHIPPING_FEE = 200;
+
 const CartDrawer = () => {
   const { items, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, clearCart, totalItems, totalPrice } = useCart();
+
+  const shipping = totalPrice >= FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE;
+  const grandTotal = totalPrice + shipping;
 
   const handleCheckout = () => {
     if (items.length === 0) return;
     const orderLines = items.map((i) => `• ${i.name} × ${i.quantity} = Rs. ${i.price * i.quantity}`).join("\n");
+    const shippingLine = shipping === 0 ? "Free Shipping ✅" : `Shipping: Rs. ${shipping}`;
     const message = encodeURIComponent(
-      `🥚 *New Order — Hamzah Farms*\n\n${orderLines}\n\n*Total: Rs. ${totalPrice}*\n\nPlease confirm my order. Thank you!`
+      `🥚 *New Order — Hamzah Farms*\n\n${orderLines}\n\n${shippingLine}\n*Grand Total: Rs. ${grandTotal}*\n\nPlease confirm my order. Thank you!`
     );
     window.open(`https://wa.me/923116971320?text=${message}`, "_blank");
   };
