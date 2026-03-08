@@ -9,6 +9,7 @@ const HeroSection = () => {
           muted
           loop
           playsInline
+          preload="metadata"
           className="w-full h-full object-cover"
           poster=""
         >
