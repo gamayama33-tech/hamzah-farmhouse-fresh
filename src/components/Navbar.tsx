@@ -16,15 +16,19 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
       {/* Announcement bar */}
       <div className="bg-primary overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap py-1.5 text-sm font-body text-primary-foreground">
-          <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
-          <span className="mx-8">🥚 Farm Fresh Eggs Delivered Across Islamabad & Rawalpindi</span>
-          <span className="mx-8">🌿 100% Natural Feed — No Hormones, No Antibiotics</span>
-          <span className="mx-8">📞 Call or WhatsApp: 03 11 697 1320</span>
-          <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
-          <span className="mx-8">🥚 Farm Fresh Eggs Delivered Across Islamabad & Rawalpindi</span>
-          <span className="mx-8">🌿 100% Natural Feed — No Hormones, No Antibiotics</span>
-          <span className="mx-8">📞 Call or WhatsApp: 03 11 697 1320</span>
+        <div className="flex animate-marquee whitespace-nowrap py-1.5 text-sm font-body text-primary-foreground">
+          <div className="flex shrink-0">
+            <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
+            <span className="mx-8">🥚 Farm Fresh Eggs Delivered Across Islamabad & Rawalpindi</span>
+            <span className="mx-8">🌿 100% Natural Feed — No Hormones, No Antibiotics</span>
+            <span className="mx-8">📞 Call or WhatsApp: 03 11 697 1320</span>
+          </div>
+          <div className="flex shrink-0">
+            <span className="mx-8">🚚 Next day delivery. Delivery Time: 11am to 4pm</span>
+            <span className="mx-8">🥚 Farm Fresh Eggs Delivered Across Islamabad & Rawalpindi</span>
+            <span className="mx-8">🌿 100% Natural Feed — No Hormones, No Antibiotics</span>
+            <span className="mx-8">📞 Call or WhatsApp: 03 11 697 1320</span>
+          </div>
         </div>
       </div>
 
