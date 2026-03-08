@@ -17,13 +17,6 @@ const CartDrawer = () => {
     setIsCartOpen(false);
     navigate("/order");
   };
-    const orderLines = items.map((i) => `• ${i.name} × ${i.quantity} = Rs. ${i.price * i.quantity}`).join("\n");
-    const shippingLine = shipping === 0 ? "Free Shipping ✅" : `Shipping: Rs. ${shipping}`;
-    const message = encodeURIComponent(
-      `🥚 *New Order — Hamzah Farms*\n\n${orderLines}\n\n${shippingLine}\n*Grand Total: Rs. ${grandTotal}*\n\nPlease confirm my order. Thank you!`
-    );
-    window.open(`https://wa.me/923116971320?text=${message}`, "_blank");
-  };
 
   return (
     <>
