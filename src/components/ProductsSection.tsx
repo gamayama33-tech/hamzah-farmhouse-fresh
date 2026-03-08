@@ -91,7 +91,7 @@ const ProductsSection = () => {
           {products.map((product) => (
             <div
               key={product.name}
-              className="bg-background rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-shadow duration-300 group"
+              className="bg-background rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-shadow duration-300 group flex flex-col"
             >
               <div className="aspect-square overflow-hidden bg-muted">
                 <img
