@@ -1,20 +1,14 @@
-import heroVideo from "@/assets/hero-video.mp4";
+import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
+        <img
+          src={heroBg}
+          alt="Hamzah Farms poultry background"
           className="w-full h-full object-cover"
-          poster=""
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-foreground/60" />
       </div>
       <div className="relative z-10 container mx-auto px-6 text-center">
