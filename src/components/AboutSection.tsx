@@ -1,4 +1,4 @@
-import farmerImg from "@/assets/farmer.jpg";
+import farmerImg from "@/assets/farm-chickens.png";
 
 const AboutSection = () => {
   return (
