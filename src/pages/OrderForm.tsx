@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "@/context/CartContext";
-import { Truck, CreditCard, ShieldCheck } from "lucide-react";
+import { Truck, CreditCard, ShieldCheck, Home, ArrowLeft } from "lucide-react";
 
 const SHIPPING_FEE = 200;
 const FREE_SHIPPING_THRESHOLD = 2000;
