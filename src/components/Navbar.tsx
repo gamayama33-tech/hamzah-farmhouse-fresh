@@ -31,7 +31,8 @@ const Navbar = () => {
       </div>
 
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        <a href="#home" className="font-display text-2xl font-bold text-primary tracking-tight">
+        <a href="#home" className="flex items-center gap-2 font-display text-2xl font-bold text-primary tracking-tight">
+          <Home className="w-5 h-5" />
           Hamzah <span className="text-secondary">Farms</span>
         </a>
 
