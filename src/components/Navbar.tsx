@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, ShoppingCart } from "lucide-react";
+import { Menu, X, ShoppingCart, Home } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 const navLinks = [
