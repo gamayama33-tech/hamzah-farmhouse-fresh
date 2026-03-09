@@ -18,8 +18,8 @@ const Footer = () => {
             <div className="space-y-2">
               {[
                 { label: "Home", href: "#home" },
-                { label: "Quality", href: "#quality" },
                 { label: "Products", href: "#products" },
+                { label: "Quality", href: "#quality" },
                 { label: "Subscriptions", href: "#subscriptions" },
                 { label: "Corporate", href: "#corporate" },
                 { label: "About", href: "#about" },
