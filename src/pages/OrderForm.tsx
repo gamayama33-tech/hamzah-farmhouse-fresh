@@ -100,9 +100,16 @@ const OrderForm = () => {
       {/* Header */}
       <header className="border-b border-border bg-background">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-          <Link to="/" className="font-display text-2xl font-bold text-primary tracking-tight">
-            Hamzah <span className="text-secondary">Farms</span>
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link to="/" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors text-sm font-body">
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </Link>
+            <Link to="/" className="flex items-center gap-2 font-display text-2xl font-bold text-primary tracking-tight">
+              <Home className="w-5 h-5" />
+              Hamzah <span className="text-secondary">Farms</span>
+            </Link>
+          </div>
           <div className="flex items-center gap-2 text-muted-foreground">
             <ShieldCheck className="w-4 h-4" />
             <span className="font-body text-xs">Secure Checkout</span>
